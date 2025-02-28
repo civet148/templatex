@@ -16,7 +16,7 @@ const (
 func Generate(htmlTemplate string, data any, toFiles ...string) (htmlContent string, err error) {
 	var t *template.Template
 
-	if !isHtmlFormat(htmlTemplate) {
+	if !isBuiltinTemplate(htmlTemplate) {
 		t = template.Must(template.New(filepath.Base(htmlTemplate)).ParseFiles(htmlTemplate))
 	} else {
 		t = template.Must(template.New(defaultTemplateName).Parse(htmlTemplate))
@@ -42,9 +42,12 @@ func Generate(htmlTemplate string, data any, toFiles ...string) (htmlContent str
 	return htmlContent, nil
 }
 
-func isHtmlFormat(str string) bool {
+func isBuiltinTemplate(str string) bool {
 	//<!DOCTYPE html>
-	if strings.Contains(str, "<") && strings.Contains(str, "DOCTYPE") && strings.Contains(str, "html") && strings.Contains(str, ">") {
+	if strings.Contains(str, "<!") && strings.Contains(str, "DOCTYPE") && strings.Contains(str, "html") && strings.Contains(str, ">") {
+		return true
+	}
+	if strings.Contains(str, "{{") && strings.Contains(str, "}}") {
 		return true
 	}
 	return false
