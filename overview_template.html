@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>盘点任务总览</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: center;
+        }
+        .fixed-section td {
+            height: 30px;
+            text-align: left;
+        }
+        .main-header th {
+            background-color: #f0f0f0;
+        }
+        .sub-header th {
+            background-color: #f8f8f8;
+        }
+        .data-row td {
+            height: 25px;
+        }
+    </style>
+</head>
+<body>
+    <h1>盘点任务总览</h1>
+    <table>
+        <!-- 固定区域：5行4列 -->
+        <tr class="fixed-section">
+            <td colspan="4">盘点日期: {{.AuditDate}}</td>
+            <td colspan="2">盘点仓库: {{.Storages}}</td>
+            <td colspan="2">盘点人员: {{.Auditors}}</td>
+            <td colspan="2"></td>
+        </tr>
+        <tr class="fixed-section">
+            <td colspan="4">盘点单号: {{.AuditNo}}</td>
+            <td colspan="2">账面件数: {{.TotalNum}}</td>
+            <td colspan="2">实盘件数: {{.TotalAuditNum}}</td>
+            <td colspan="2">差异件数: {{.TotalNumDiff}}</td>
+        </tr>
+        <tr class="fixed-section">
+            <td colspan="4">盘点类型: {{.AuditTypeText}}</td>
+            <td colspan="2">账面净重: {{.TotalWeight}}</td>
+            <td colspan="2">实盘净重: {{.TotalAuditWeight}}</td>
+            <td colspan="2">差异重量: {{.TotalWeightDiff}}</td>
+        </tr>
+        <tr class="fixed-section">
+            <td colspan="4">盘点性质: {{.AuditNatureText}}</td>
+            <td colspan="2">应盘流水: {{.TotalCount}}</td>
+            <td colspan="2">实盘流水: {{.DoneCount}}</td>
+            <td colspan="2">差异条数: {{.DiffCount}}</td>
+        </tr>
+        <tr class="fixed-section">
+            <td colspan="4">盘点班次: {{.ShiftTypeText}}</td>
+            <td colspan="2"></td>
+            <td colspan="2"></td>
+            <td colspan="2"></td>
+        </tr>
+        
+        <!-- 主表头 -->
+        <tr class="main-header">
+            <th colspan="4">产品信息</th>
+            <th colspan="2">账面数据</th>
+            <th colspan="2">实盘数据</th>
+            <th colspan="2">差异情况</th>
+        </tr>
+        
+        <!-- 子表头 -->
+        <tr class="sub-header">
+            <th>序号</th>
+            <th>产品编码</th>
+            <th>产品名称</th>
+            <th>规格信息</th>
+            <th>账面件数</th>
+            <th>账面重量</th>
+            <th>实盘件数</th>
+            <th>实盘重量</th>
+            <th>数量差异</th>
+            <th>重量差异</th>
+        </tr>
+        
+        <!-- 数据行（示例） -->
+        {{range .List}}
+        <tr class="data-row">
+            <td>{{.SortNo}}</td>
+            <td>{{.ProductNo}}</td>
+            <td>{{.ProductName}}</td>
+            <td>{{.ProductSpecsValue}}</td>
+            <td>{{.Num}}</td>
+            <td>{{.NetWeight}}</td>
+            <td>{{.AuditNum}}</td>
+            <td>{{.AuditNetWeight}}</td>
+            <td>{{.NumDiff}}</td>
+            <td>{{.WeightDiff}}</td>
+        </tr>
+        {{end}}
+    </table>
+</body>
+</html>
