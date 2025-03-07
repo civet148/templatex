@@ -1,4 +1,4 @@
-module gitbub.com/civet148/templatex
+module github.com/civet148/templatex
 
 go 1.19
 
